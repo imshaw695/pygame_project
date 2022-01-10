@@ -1,0 +1,31 @@
+<table id="table_id" class="display">
+    <thead>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>        
+        <script>
+            $(document).ready( function () {
+            $('#table_id').DataTable();
+            } );
+        </script>
+        <tr>
+            <th>Date Occurred</th>
+            <th>Date Input</th>
+            <th>Competitor</th>
+            <th>Activity Type</th>
+            <th>Distance/Time/kCal/VO2 Max</th>
+        </tr>
+
+    </thead>
+    <tbody>
+
+        {% for entry in table_data %}
+        <tr>
+            {% for item in table_data[entry] %}
+            <td>{{ table_data[entry][item] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

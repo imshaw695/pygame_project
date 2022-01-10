@@ -1,0 +1,63 @@
+{% set title = 'Leaderboard' %}
+{% extends "base_layout.html" %}
+{% block body %}
+    <link rel="stylesheet" type="text/css" rel="noopener" target="_blank" href="{{ url_for('static',filename='styles/mystyles.css') }}">
+    <script>
+        const setButtonLeftAttr = (value) => {
+	const buttonGroup = document.querySelector('.button-group');
+
+	buttonGroup.dataset.left = value
+    }
+
+    const buttonClick = (value) => {
+	    setButtonLeftAttr(value)
+    }
+    </script>
+    {% block navbar %}
+        {% include '/includes/_navbar.html' %}
+    {% endblock navbar %}
+        <div class="container">
+            <div id="reference">Design from <a href="https://www.uidesigndaily.com/posts/xd-leaderboard-list-day-1369">UI design daily</a></div>
+            <div class="frame">
+                <header>Leaderboard</header>
+                <div class="button-group" data-left="4px"><button onClick="buttonClick('4px')">Last 30 days</button><button onClick="buttonClick('50%')">All time</button></div>
+                <div class="score-card">
+                    <div class="leader">
+                        <div class="user">
+                            <div class="number">1</div>
+                            <div class="user-pic"></div>
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">{{ first_place }}</div>
+                            <div class="view-count"></div>
+                        </div>
+                        <div class="gallery">
+                            {% for competition in victory_totals[first_place] %}
+                            <div class="gallery-item"> {{ competition }} </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="leader">
+                        <div class="user">
+                            <div class="number">2</div>
+                            <div class="user-pic"></div>
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">{{ second_place }}</div>
+                            <div class="view-count"></div>
+                        </div>
+                        <div class="gallery">
+                            {% for competition in victory_totals[second_place] %}
+                            <div class="gallery-item"> {{ competition }} </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    
+{% block content %}
+    {{ super() }}
+    {{results}}
+{% endblock content %}
+{% endblock body %}

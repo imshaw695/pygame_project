@@ -1,0 +1,124 @@
+{
+    "plank_times": {
+        "oliver": [
+            125
+        ],
+        "ivan": [
+            155,
+            155
+        ]
+    },
+    "vo2_maxes": {
+        "oliver": [
+            53
+        ],
+        "ivan": [
+            45,
+            45
+        ]
+    },
+    "total_calories_burned": {
+        "oliver": [
+            123
+        ],
+        "ivan": [
+            55,
+            55
+        ]
+    },
+    "total_distance": {
+        "oliver": [
+            4.0
+        ],
+        "ivan": [
+            3.3,
+            3.3
+        ]
+    },
+    "table_data": {
+        "Onajr-X4-65QjA": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:07",
+            "competitor": "oliver",
+            "activity_type": "plank",
+            "score": 125
+        },
+        "3luVvDnAhE5ZbQ": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:07",
+            "competitor": "oliver",
+            "activity_type": "vo2_max",
+            "score": 53
+        },
+        "k33xcPkSdIa1sw": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:07",
+            "competitor": "oliver",
+            "activity_type": "calories_burned",
+            "score": 123
+        },
+        "EdNpoknVQ-sRhw": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:07",
+            "competitor": "oliver",
+            "activity_type": "distance",
+            "score": 4.0
+        },
+        "azRar_HOBg7wPw": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:24",
+            "competitor": "ivan",
+            "activity_type": "plank",
+            "score": 155
+        },
+        "29Yl4I7yZ7Fnmw": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:24",
+            "competitor": "ivan",
+            "activity_type": "vo2_max",
+            "score": 45
+        },
+        "Pa4PujO6lOIZQg": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:24",
+            "competitor": "ivan",
+            "activity_type": "calories_burned",
+            "score": 55
+        },
+        "y0MiI6IUsY-3iQ": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:24",
+            "competitor": "ivan",
+            "activity_type": "distance",
+            "score": 3.3
+        },
+        "lkvNKYZLh08R8w": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:24",
+            "competitor": "ivan",
+            "activity_type": "plank",
+            "score": 155
+        },
+        "ffm-wVwRiZ14Xg": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:24",
+            "competitor": "ivan",
+            "activity_type": "vo2_max",
+            "score": 45
+        },
+        "k4cytHby2IyUbA": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:24",
+            "competitor": "ivan",
+            "activity_type": "calories_burned",
+            "score": 55
+        },
+        "fqKTShBw17A0iQ": {
+            "data_of_activity": "2022-01-09",
+            "date_input": "09/01/2022, 16:58:24",
+            "competitor": "ivan",
+            "activity_type": "distance",
+            "score": 3.3
+        }
+    }
+}
