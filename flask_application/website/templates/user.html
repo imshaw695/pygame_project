@@ -1,0 +1,19 @@
+{% set title = 'User' %}
+{% extends "base_layout.html" %}
+{% block body %}
+    {% block navbar %}
+        {% include '/includes/_navbar.html' %}
+    {% endblock navbar %}
+    
+    {% block content %}
+    <div class="container-fluid">
+        <h2>{{ user }}</h2>
+        <a href="/leaderboard">Leaderboard</a><br>
+        <a href="/input_form">Input Training Data</a><br>
+        <a href="/running_stats">View Stats</a><br>
+        <a href="/datatables">Data Tables</a>
+    </div>
+    {{ super() }}
+    {{results}}
+{% endblock content %}
+{% endblock body %}

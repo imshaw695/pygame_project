@@ -10,7 +10,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "flask_application/wsgi.py",
+                "FLASK_APP": "flask_application/website/routes.py",
                 "FLASK_ENV": "development"
             },
             "args": [

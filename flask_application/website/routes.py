@@ -1,11 +1,29 @@
 # Import relevant modules
-from re import S
-from flask import request, render_template, redirect, session, flash
+
+from flask import Flask, request, render_template, redirect, session, flash
+from flask_sqlalchemy import SQLAlchemy
 from flask.helpers import url_for
 from datetime import timedelta
 import os
 import json
 from datetime import datetime
+
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///users.sqlite3'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.secret_key = "hello"
+app.permanent_session_lifetime = timedelta(days = 2)
+
+db = SQLAlchemy(app)
+
+class users(db.Model):
+    _id = db.Column("id", db.Integer, primary_key = True)
+    username = db.Column(db.String(100))
+    password = db.Column(db.String(100))
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
 
 this_directory = os.path.abspath(os.path.dirname(__file__))
 
@@ -21,9 +39,10 @@ vo2_maxes = all_data["vo2_maxes"]
 total_calories_burned = all_data["total_calories_burned"]
 total_distance = all_data["total_distance"]
 table_data = all_data["table_data"]
+# ivan_monthly_calories = all_data["month_calorie_totals"]["ivan"]
+# oliver_monthly_calories = all_data["monthly_calorie_totals"]["oliver"]
 
 # Import the Flask webapp instance that we created in the __init__.py
-from website import app
 
 def put_persisted_data(data_to_be_persisted):
     path_to_data = os.path.join(this_directory, 'persisted_data.json')
@@ -37,9 +56,6 @@ def get_new_entry(data_of_activity, date_input, competitor, activity_type, score
     new_entry = dict(data_of_activity=data_of_activity, date_input=date_input, competitor=competitor, activity_type=activity_type, score=score)
 
     return new_entry
-
-app.secret_key = "hello"
-app.permanent_session_lifetime = timedelta(minutes=15)
 
 @app.route("/index", methods=["GET", "POST"])
 # Now comes the actual function definition for processing this page
@@ -148,12 +164,33 @@ def running_stats():
         player_distance = sum(total_distance[player])
         distance[player] = player_distance
 
+    # make a monthly_calories for me and P
+    # I need to figure out how to also extract the date from the datetime group
+    ivan_monthly_calories = [0,0,0,0,0,0,0,0,0,0,0,0]
+    oliver_monthly_calories = [0,0,0,0,0,0,0,0,0,0,0,0]
+    for item in table_data:
+        for input_type in table_data[item]:
+            if input_type == "data_of_activity":
+                a = table_data[item][input_type]
+                datee = datetime.strptime(a, "%Y-%m-%d")
+                month_index = (datee.month) - 1
+            if input_type == "competitor":
+                competitor = table_data[item][input_type]
+            if table_data[item][input_type] == "calories_burned":
+                score = table_data[item]["score"]
+                if competitor == "oliver":
+                    oliver_monthly_calories[month_index] = oliver_monthly_calories[month_index] + score 
+                if competitor == "ivan":
+                    ivan_monthly_calories[month_index] = ivan_monthly_calories[month_index] + score 
+
     return render_template(
         "running_stats.html",
         distance = distance,
         planks = planks,
         vo2 = vo2,
-        calories = calories
+        calories = calories,
+        ivan_monthly_calories = ivan_monthly_calories,
+        oliver_monthly_calories = oliver_monthly_calories
     )
 @app.route("/input_form", methods=["GET", "POST"])
 # Now comes the actual function definition for processing this page
@@ -256,3 +293,56 @@ def datatables():
         total_distance = total_distance,
         table_data = table_data
         )
+
+@app.route("/login", methods=["GET","POST"])
+
+def login():
+
+    if request.method == "POST":
+        session.permanent = True
+        user = request.form["user"]
+        session["user"] = user
+        password = request.form["password"]
+        
+        found_user = users.query.filter_by(username = user).first()
+
+        if found_user:
+            session["user"] = found_user.username
+
+        else:
+            usr = users(user, password)
+            db.session.add(usr)
+            db.session.commit()
+        flash(
+           f"Hello {user}, you have been successfully logged in."   
+        )
+        return redirect(url_for("user"))
+
+    else:
+        if "user" in session:
+            user = session["user"]
+            flash(
+            f"Hello {user}, you are already logged in.", category="success"
+            )
+            return redirect(url_for("user"))
+        else:
+            return render_template("login.html")
+
+@app.route("/user", methods=["GET", "POST"])
+
+def user():
+    if "user" in session:
+        user = session["user"]
+        return render_template("user.html", user=user)
+    else:
+        return redirect(url_for("login"))
+    
+@app.route("/logout")
+
+def logout():
+    session.pop("user", None)
+    return redirect(url_for("login"))
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', debug=True)
+    db.create_all()

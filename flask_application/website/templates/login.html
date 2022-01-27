@@ -1,0 +1,22 @@
+{% set title = 'Login Page' %}
+{% extends "base_layout.html" %}
+{% block body %}
+    {% block navbar %}
+        {% include '/includes/_navbar.html' %}
+    {% endblock navbar %}
+    
+    {% block content %}
+    <div class = "container">
+        <h2>Login</h2>    
+        <form method="post" action='#'>
+            <label>Username</label>
+            <input type="text" id="user" name="user" placeholder="Enter username"/> <br>
+            <label>Password</label>
+            <input type="password" id="password" name="password"/> <br>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+{{ super() }}
+{{results}}
+{% endblock content %}
+{% endblock body %}

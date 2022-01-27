@@ -4,14 +4,15 @@
     {% block navbar %}
         {% include '/includes/_navbar.html' %}
     {% endblock navbar %}
-
-    <h2>Homepage</h2>
-    <a href="/leaderboard">Leaderboard</a><br>
-    <a href="/input_form">Input Training Data</a><br>
-    <a href="/running_stats">View Stats</a><br>
-    <a href="/datatables">Data Tables</a>
-
-{% block content %}
+    
+    {% block content %}
+    <div class="container-fluid">
+        <h2>Homepage</h2>
+        <a href="/leaderboard">Leaderboard</a><br>
+        <a href="/input_form">Input Training Data</a><br>
+        <a href="/running_stats">View Stats</a><br>
+        <a href="/datatables">Data Tables</a>
+    </div>
     {{ super() }}
     {{results}}
 {% endblock content %}

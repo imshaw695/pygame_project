@@ -10,7 +10,7 @@
     {% block navbar %}
         {% include '/includes/_navbar.html' %}
     {% endblock navbar %}
-
+<div class="container-fluid">
     <h2>Stats</h2>
     <h4>Total Calories</h4>
     {% for player in calories %}
@@ -28,37 +28,32 @@
     {% for player in vo2 %}
     <p class="m_title">{{ player }} best VO2 Max: {{ vo2[player] }}</p>
     {% endfor %}
+
+    {{ ivan_monthly_calories }}
+    {{ oliver_monthly_calories }}
+    {% set test = '[3,200,600,1800,22000]' %}
     <div>
         <canvas id="line-chart" width="800" height="450"></canvas>
+        <input type="hidden"  id="oliver_monthly_calories" value="{{ test }}">
+        <input type="hidden"  id="ivan_monthly_calories" value="{{ ivan_monthly_calories }}">
         <script>
             new Chart(document.getElementById("line-chart"), {
                 type: 'line',
                 data: {
-                    labels: ["January"],
+                    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
                     datasets: [{ 
-                        data: [86,114,106,106,107,111,133,221,783,2478],
-                        label: "Africa",
+                        data: [
+                            document.querySelector('#oliver_monthly_calories').value
+                        ],
+                        label: "Oliver - Calories Burned",
                         borderColor: "#3e95cd",
                         fill: false
                     }, { 
-                        data: [282,350,411,502,635,809,947,1402,3700,5267],
-                        label: "Asia",
+                        data: [
+                            document.querySelector('#ivan_monthly_calories').value
+                        ],
+                        label: "Ivan - Calories Burned",
                         borderColor: "#8e5ea2",
-                        fill: false
-                    }, { 
-                        data: [168,170,178,190,203,276,408,547,675,734],
-                        label: "Europe",
-                        borderColor: "#3cba9f",
-                        fill: false
-                    }, { 
-                        data: [40,20,10,16,24,38,74,167,508,784],
-                        label: "Latin America",
-                        borderColor: "#e8c3b9",
-                        fill: false
-                    }, { 
-                        data: [6,3,2,2,7,26,82,172,312,433],
-                        label: "North America",
-                        borderColor: "#c45850",
                         fill: false
                     }
                 ]
@@ -72,6 +67,7 @@
         });
         </script>
     </div>
+</div>
 {% block content %}
 {{ super() }}
 {{results}}
