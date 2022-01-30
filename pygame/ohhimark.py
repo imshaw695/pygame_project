@@ -2,11 +2,12 @@ from turtle import window_width
 import pygame
 import os
 import random
+import csv
 
 pygame.init()
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = int(0.8 * SCREEN_WIDTH)
+SCREEN_WIDTH = 1216
+SCREEN_HEIGHT = SCREEN_WIDTH * 0.6
 
 # set framerate
 clock = pygame.time.Clock()
@@ -14,7 +15,11 @@ FPS = 60
 
 # define game variables
 GRAVITY = 0.75
-TILE_SIZE = 5
+ROWS = 16
+COLUMNS = 150
+TILE_SIZE = SCREEN_HEIGHT // ROWS
+TILE_TYPES = 27
+level = 1
 
 # define colours
 BLUE = (0,128,255)
@@ -395,11 +400,25 @@ item_box_group.add(item_box)
 
 tommy = Character('player',200,200, 2,5,100000, 5)
 health_bar = HealthBar(10,10,tommy.health, tommy.health)
-enemy = Character('enemy',500,250, 1.5,3,500,0)
-enemy2 = Character('enemy',700,250, 1.5,3,500,0)
+enemy = Character('enemy',500,250, 0.25,3,500,0)
+enemy2 = Character('enemy',700,250, 0.25,3,500,0)
 enemy_group.add(enemy)
 enemy_group.add(enemy2)
 
+#create empty tile list
+world_data = []
+for row in range(ROWS):
+    r = [-1] * COLUMNS
+    world_data.append(r)
+#load in level data and create world
+
+with open(f"level{level}_data.csv", newline="") as csvfile:
+    reader = csv.reader(csvfile, delimiter=',')
+    for x,row in enumerate(reader):
+        for y,tile in enumerate(row):   
+            world_data[x][y] = int(tile)
+
+ 
 
 run = True
 

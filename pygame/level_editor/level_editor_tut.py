@@ -9,8 +9,8 @@ clock = pygame.time.Clock()
 FPS = 60
 
 #game window
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 640
+SCREEN_WIDTH = 1216
+SCREEN_HEIGHT = 608
 LOWER_MARGIN = 100
 SIDE_MARGIN = 300
 
@@ -19,10 +19,10 @@ pygame.display.set_caption('Level Editor')
 
 
 #define game variables
-ROWS = 16
+ROWS = 16	
 MAX_COLS = 150
 TILE_SIZE = SCREEN_HEIGHT // ROWS
-TILE_TYPES = 21
+TILE_TYPES = 27
 level = 0
 current_tile = 0
 scroll_left = False
